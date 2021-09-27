@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-12 col-11 mt-3">
+        <div class="row mt-5 text-center border-16 bg-blue-light p-5 h-90">
+
+            <div class="col-12">
+                <h3 class="font-weight-bold">Student Exam Portal</h3>
+                <p class="font-weight-bold small">
+                    Your Ip Address : @ViewBag.IpAddress
+                </p>
+            </div>
+
+            <div class="col-12 my-2 text-center">
+                <select name="sources" id="sources" class="custom-select sources" placeholder="Select College">
+                    <option value="UVPCE">U. V. Patel College Of Engineering</option>
+                    <option value="Saffrony">Saffrony</option>
+                    <option value="profile">Ahmedabad University</option>
+                    <option value="word">Gujarat Power</option>
+                    <option value="word">Nirma</option>
+                    <option value="word">Lovely Proffesional University</option>
+                </select>
+            </div>
+
+            <div class="col-12 my-2 text-center">
+                <select name="sources" id="sources" class="custom-select sources" placeholder="Select Exam">
+                    <option value="examcode">Sem 7: CP</option>
+                    <option value="examcode">Sem 5: SP</option>
+                    <option value="examcode">Sem 3: DP</option>
+                    <option value="examcode">Sem 1: JP</option>
+                </select>
+            </div>
+
+            <div class="col-12 my-3 mt-5">
+                <a onclick="StartInterval()" class="bg-blue text-white shadow-blue border-10 px-5 py-3 bg-blue-hover shadow-blue-hover smooth-transition cursor-pointer mx-5">
+                    Start Exam
+                </a>
+                <br />
+                <p class="mt-4 text-muted font-weight-bolder">
+                    Time: 10:00 AM To 12:00 AM
+                </p>
+            </div>
+
+
+            <div class="col-12 my-2 d-none">
+                <a onclick="StopInterval()" class="bg-blue text-white shadow-blue border-10 px-4 py-2 bg-blue-hover shadow-blue-hover smooth-transition cursor-pointer mx-5">
+                    Stop
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

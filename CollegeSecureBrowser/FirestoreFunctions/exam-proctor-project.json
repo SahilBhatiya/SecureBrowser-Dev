@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "exam-proctor-project",
+  "private_key_id": "20b31510485b52a713171e5826cbc9069771a546",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDcxboZppgv6WMu\nDoLkve2TiMXsiECSNPd2X96zE2HydY7AupxlFp0COQbX3bqcNiB1GJXBquQerIPA\nNf8Kd70YF0WY23DM3ffOqEcKxk79kduXVs2t5gZ704Py0TL75c9REqrZSAM8I5Rc\nQyCcBGaL0E7ZZc2z0g2tY9Vy125zVUvbNa2x5B+krby7k7/jkXw2QX3CYPigz8LE\nKBn/+6qwz7GvgPSXKfC0rQGLWxbORG0Var2jokRvPt0ulZGyox/jUm7nni/dG/9c\nzT8XPy+fbtQr6Dnng50od/N+HfOgN78vssAtQ5mmm0kkjyG/QcDR1b52Ae6UK1v/\nd4XqclAXAgMBAAECggEAF6zMjDulTl4E2MeNmeIUPCIKt5bU9djgQL1/MEz/z/Rz\nXo+kfeKy664Z4cRRYrcbO/Nq+93LoM53QoGH3CODD7ZPLFk7+3xCOtMo6yrhBahC\nmDQi0mc8gsLn/34XrZOza8pIsAxc7HIUUuCP+qsuJAgurHmSWZpJBTMTjME1gwCL\npwj5g20+R85EHhEQTxvUuAw8QjKDKHlRAxTnH7J10V17JqTPe2ykEnbuxEFIkMQa\nczSMyfsOSMvtP98ximB/8FxKqjyr4OxYRv6p0RT2s5KCC1jAiE8Jh8qOpW8IMhKf\n/waI6VFrtCwZYBeKfpL2R3ppIG0tRiQyBqiPjk5gIQKBgQDxtohmSZ5cW5ra0PJg\nZdOuB1ARn7e/O00i9DCj8jqrYMAVUrFmBdgmbZgZDkAgoAEVr+KFO8ro7CxBDA0c\nIjGh/klAajqyIQsmOE/Skef26LpjE4i0x8JElr1v+L6fzwz2yvh2a2OisYMWCFZy\nfrbi4HrI8Lqj5HNdjI6IaieTBQKBgQDp0lT2hw+lFjQbBRryymBFOiCedcGnJdIf\nuZq2uVWPILuqyFdGSluSEaUb849ZLxznhZ+IczYzTao2S8A2RZ+YYZp7nsddxIIp\nTZ3i10UpioNH8H6PI48oPRJt9RC79FMRL07oSZXDwfXB5GJC6vY4C0PqfVOdUyTT\n8gO4Csj5awKBgEPDXYf3mZrg34/6xgh6Y5bFXBAky7mj4WMsPDqqHQKQtCkGLs+g\nUdGsJdjYYugCk2tGDOY3NhKIq3ts6nv5php5FIYngd8QXnTPkqlA2FwjMKW4AzpT\nSkY6UE+E18QrosHJc1CXmK4yv8I8gifFGHaQYjvVKS3rTOBsGEVsJT4VAoGBAJ8u\nGblbaUMyQnbCmv3+2FtInzxBXny0OsBuUu1ibuTpm9lAWmn35S8j5AuLXGOSt1LG\nnTz/cj6q+N3N5CUOcQAEMm9GQOONDC+iL4JmmycUrRskloRL6QGz0gAZfjL2ujZQ\nxp9MuTBzsyM0n9B+tPCierIAcBQCrme7stxwOzHRAoGAGbW99HYHL2YWorQ7auoA\nRvhm0NgTnTKpvtCjd0aUEFlvUSGf+cAT8sZqgX0OaKSX1NHmNwocy4Rt4RuPELBF\nkHyvYb6la5ZCiKxH2QJxoJdO5adlJJ6/Qjspo8t6U/G+ChPBtggEFMvwYCcIhsgI\nIVtRuJLZ5Wx0zBrq++f2p8w=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-qntqt@exam-proctor-project.iam.gserviceaccount.com",
+  "client_id": "106274815341578315861",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qntqt%40exam-proctor-project.iam.gserviceaccount.com"
+}
