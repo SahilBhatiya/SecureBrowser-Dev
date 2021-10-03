@@ -3,7 +3,7 @@
 }
 <div class="row justify-content-center" onload="getLocation()">
     <div class="col-lg-12 col-11 mt-3">
-        <div class="row mt-5 text-center border-16 bg-blue-light p-5 ">
+        <form onsubmit="return false" id="LoginCollege" class="row mt-5 text-center border-16 bg-blue-light p-5 ">
 
             <div class="col-12">
                 <h3 class="font-weight-bold">Welcome</h3>
@@ -17,15 +17,15 @@
             </div>
 
             <div class="col-12 my-3 text-center">
-                <input type="email" placeholder="Enter Your Email" class="py-3 px-4 border-0 border-12 shadow-2 shadow-1-hover smooth-transition font-weight-bold" />
+                <input type="email" name="Email" placeholder="Enter Your Email" class="py-3 px-4 border-0 border-12 shadow-2 shadow-1-hover smooth-transition font-weight-bold" />
             </div>
 
             <div class="col-12 my-3 text-center">
-                <input type="password" placeholder="Enter Password" class="py-3 px-4 border-0 border-12 shadow-2 shadow-1-hover smooth-transition font-weight-bold" />
+                <input type="password" name="Password" placeholder="Enter Password" class="py-3 px-4 border-0 border-12 shadow-2 shadow-1-hover smooth-transition font-weight-bold" />
             </div>
 
             <div class="col-12 my-3 mt-5">
-                <a onclick="" class="bg-blue text-white shadow-blue border-10 px-5 py-3 bg-blue-hover shadow-blue-hover smooth-transition cursor-pointer mx-5">
+                <a onclick="Login()" class="bg-blue text-white shadow-blue border-10 px-5 py-3 bg-blue-hover shadow-blue-hover smooth-transition cursor-pointer mx-5">
                     Signin
                 </a>
             </div>
@@ -43,6 +43,6 @@
                 </a>
             </div>
 
-        </div>
+        </form>
     </div>
 </div>

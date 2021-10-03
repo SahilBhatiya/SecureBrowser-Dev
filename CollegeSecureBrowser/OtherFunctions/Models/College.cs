@@ -16,5 +16,7 @@ namespace CollegeSecureBrowser.OtherFunctions.Models
         public String Email { get; set; }
         public String DefaultLink { get; set; }
         public String Password { get; set; }
+        public String NewPassword { get; set; }
+        public String Role { get; set; }
     }
 }

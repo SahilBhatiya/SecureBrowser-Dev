@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "Settings";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<h1 class="PageHeading">
+    <span class="pageSubTitle d-block fg-primary-color mb-1">Want to change anything @ViewBag.User.Name Admin?</span>
+    Settings
+</h1>
+
+<div class="container">
+    <div class="row">
+        <a href="/Settings" class="col-8 border-0 card Settings-Card bg-white shadow-2 border-16">
+            <h4 class="bg-transparent border-0 font-size-20 mb-0">Manage Profile</h4>
+            <div class="pageSubTitle font-weight-bold">
+                Edit Your Profile
+            </div>
+        </a>
+        <a href="/Settings/Password" class="col-8 border-0 card Settings-Card bg-white shadow-2 border-16">
+            <h4 class="bg-transparent border-0 font-size-20 mb-0">Change Password</h4>
+            <div class="pageSubTitle font-weight-bold">
+                Reset Your Password
+            </div>
+        </a>
+        <a href="/Identity/Account/Manage/PersonalData" class="col-8 border-0 card Settings-Card bg-white shadow-2 border-16">
+            <h4 class="bg-transparent border-0 font-size-20 mb-0">Delete Account</h4>
+            <div class="pageSubTitle font-weight-bold">
+                Delete Your Account
+            </div>
+        </a>
+    </div>
+</div>
+

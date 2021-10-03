@@ -132,7 +132,41 @@ function CreateCollege() {
         url: `/Home/CreateCollege`,
         data: data,
         success: function (data) {
-            window.location = "/Dashboard/";
+            if (data.value.toString().includes("Exsits"))
+                DisplayMsg(1, "Error!", data.value, 4000, "b");
+            else
+                window.location = "/Dashboard/";
+        }
+    });
+}
+
+function Login() {
+    const data = $('#LoginCollege').serializeArray();
+
+    const obj = getFormObj(data);
+
+    $.ajax({
+        type: "POST",
+        url: `/Home/LoginCollege`,
+        data: data,
+        success: function (data) {
+            if (data.value == "true") {
+                window.location = "/Dashboard/";
+            } else {
+                DisplayMsg(1, "Invalid Credentials!", "Please Enter Correct Credentials", 4000, "b");
+            }
+        }
+    });
+}
+
+function Logout() {
+    $.ajax({
+        type: "POST",
+        url: `/Home/Logout`,
+        success: function (data) {
+            if (data.value == "true") {
+                window.location = "/";
+            }
         }
     });
 }

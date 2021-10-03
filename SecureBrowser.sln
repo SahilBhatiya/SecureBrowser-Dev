@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureBrowser", "SecureBrow
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollegeSecureBrowser", "CollegeSecureBrowser\CollegeSecureBrowser.csproj", "{B74D6923-FB4B-4363-A977-BE760640BBAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminSecureBrowser", "AdminSecureBrowser\AdminSecureBrowser.csproj", "{926A6E81-93E0-461D-BB9D-6E09E720D2F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B74D6923-FB4B-4363-A977-BE760640BBAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B74D6923-FB4B-4363-A977-BE760640BBAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B74D6923-FB4B-4363-A977-BE760640BBAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{926A6E81-93E0-461D-BB9D-6E09E720D2F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{926A6E81-93E0-461D-BB9D-6E09E720D2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{926A6E81-93E0-461D-BB9D-6E09E720D2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{926A6E81-93E0-461D-BB9D-6E09E720D2F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
