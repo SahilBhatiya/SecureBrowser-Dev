@@ -26,6 +26,23 @@ namespace AdminSecureBrowser.Controllers
 
         }
 
+        public IActionResult Colleges()
+        {
+            Task<FirestoreAdmin> user = FirestoreFunctions.Functions.GetAdmin(User.Identity.Name);
+            user.Wait();
+            ViewBag.User = user.Result;
+            return View();
+        }
+
+        public IActionResult Admin()
+        {
+            Task<FirestoreAdmin> user = FirestoreFunctions.Functions.GetAdmin(User.Identity.Name);
+            user.Wait();
+            ViewBag.User = user.Result;
+            return View();
+        }
+
+
         public IActionResult Settings()
         {
             Task<FirestoreAdmin> user = FirestoreFunctions.Functions.GetAdmin(User.Identity.Name);
