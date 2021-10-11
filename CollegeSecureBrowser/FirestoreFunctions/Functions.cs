@@ -27,8 +27,6 @@ namespace CollegeSecureBrowser.FirestoreFunctions
 
         public static string Connect()
         {
-            //var json = new WebClient().DownloadString("https://sahilbhatiya.me/PrivateData/key.json");
-
             var file = AppDomain.CurrentDomain.BaseDirectory + @"\FirestoreFunctions\Key2.json";
             var json = File.ReadAllText(file, Encoding.UTF8);
 
