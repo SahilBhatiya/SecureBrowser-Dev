@@ -70,9 +70,9 @@ namespace CollegeSecureBrowser
                 {
                     Frame = false,
                     Center = true,
-                    MinWidth = 768,
+                    MinWidth = 1200,
                     MinHeight = 600,
-                    Width = 768,
+                    Width = 1200,
                     Height = 600,
                     Icon = "./Icon.ico",
                     Title = "Student Exam Portal",
