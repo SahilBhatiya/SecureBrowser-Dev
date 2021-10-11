@@ -56,3 +56,23 @@ function UpdatePassword() {
     }
 
 }
+
+
+
+function DeleteAccount() {
+    const data = $('#DeleteAccount').serializeArray();
+
+    $.ajax({
+        type: "POST",
+        url: `/Settings/DeleteAccountPost`,
+        data: data,
+        success: function (data) {
+            if (data.value == "true") {
+                Logout();
+                window.location = "/";
+            } else {
+                DisplayMsg(1, "Error!", "Cannot Delete Your College Account", 4000, "b");
+            }
+        }
+    });
+}

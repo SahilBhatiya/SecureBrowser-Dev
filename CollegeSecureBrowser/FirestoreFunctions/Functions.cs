@@ -47,6 +47,44 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             return "Sucess";
         }
 
+        internal static async Task<bool> DeleteCollege(string Email, string password)
+        {
+            Boolean isCollegeDeleted = false;
+
+            Connect();
+            DocumentReference DOC = database
+                                   .Collection("College")
+                                   .Document(Email);
+
+            College clg = new College()
+            {
+                Email = Email,
+                Password = Hashing.ComputeSha256Hash(password),
+            };
+
+            bool isValid = await VerifyCollege(clg);
+
+            if (isValid)
+            {
+                var result = await DOC.DeleteAsync();
+                if (result != null)
+                {
+                    isCollegeDeleted = true;
+                }
+                else
+                {
+                    isCollegeDeleted = false;
+                }
+            }
+            else
+            {
+                isCollegeDeleted = false;
+            }
+
+
+            return isCollegeDeleted;
+        }
+
         public static async Task<bool> VerifyCollege(College college)
         {
             Connect();

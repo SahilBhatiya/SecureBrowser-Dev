@@ -29,6 +29,12 @@ namespace CollegeSecureBrowser.Controllers
 
         }
 
+
+        public IActionResult Ransdfjkn()
+        {
+            return View();
+        }
+
         public IActionResult Settings()
         {
             Task<FirestoreCollege> user = FirestoreFunctions.Functions.GetCollege(User.Identity.Name);
