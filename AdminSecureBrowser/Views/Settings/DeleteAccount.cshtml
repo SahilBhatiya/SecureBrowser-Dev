@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "DeleteAccount";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h1 class="PageHeading">
+    <span class="pageSubTitle d-block fg-primary-color mb-1">Want To Delete Your Account, @ViewBag.User.Name ?</span>
+    Delete Admins Account
+</h1>
+
+<div class="container">
+    <form id="DeleteAccount" method="post" onsubmit="return false;" class="row">
+        <div class="col-12 my-3 text-center">
+            <input type="password" name="Password" placeholder="Enter Password" class="py-3 px-4 border-0 border-12 shadow-2 shadow-1-hover smooth-transition font-weight-bold" />
+        </div>
+        <div class="col-12 my-3 mt-5">
+            <button type="submit" onclick="DeleteAccount()" class="bg-blue text-white shadow-blue border-10 px-5 py-3 bg-blue-hover shadow-blue-hover smooth-transition cursor-pointer mx-5 border-0">
+                Delete Account
+            </button>
+        </div>
+    </form>
+</div>
+

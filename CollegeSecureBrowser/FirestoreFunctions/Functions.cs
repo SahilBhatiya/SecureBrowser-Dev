@@ -42,7 +42,7 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                 Console.WriteLine("\n\n\n\n\n\nError \n"+ e.ToString() + "\n\n"+ e.InnerException +"\n\n\n\n\n");
             }
 
-            return "Sucess";
+            return "Success";
         }
 
         internal static async Task<bool> DeleteCollege(string Email, string password)

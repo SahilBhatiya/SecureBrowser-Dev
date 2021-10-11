@@ -44,7 +44,45 @@ namespace AdminSecureBrowser.FirestoreFunctions
                 Console.WriteLine("\n\n\n\n\n\nError \n"+ e.ToString() + "\n\n"+ e.InnerException +"\n\n\n\n\n");
             }
 
-            return "Sucess";
+            return "Success";
+        }
+
+        internal static async Task<bool> DeleteAdmin(string Email, string password)
+        {
+            Boolean isAdminDeleted = false;
+
+            Connect();
+            DocumentReference DOC = database
+                                   .Collection("Admin")
+                                   .Document(Email);
+
+            Admin model = new Admin()
+            {
+                Email = Email,
+                Password = Hashing.ComputeSha256Hash(password),
+            };
+
+            bool isValid = await VerifyAdmin(model);
+
+            if (isValid)
+            {
+                var result = await DOC.DeleteAsync();
+                if (result != null)
+                {
+                    isAdminDeleted = true;
+                }
+                else
+                {
+                    isAdminDeleted = false;
+                }
+            }
+            else
+            {
+                isAdminDeleted = false;
+            }
+
+
+            return isAdminDeleted;
         }
 
         public static async Task<bool> VerifyAdmin(Admin model)
