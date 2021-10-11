@@ -704,3 +704,8 @@ a:hover {
         background: var(--Blue-color-light);
         color: var(--Blue-color) !important;
     }
+
+
+.fg-hover-primary-color:hover {
+    color: var(--primary-color) !important;
+}

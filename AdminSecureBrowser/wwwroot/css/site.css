@@ -705,3 +705,7 @@ a:hover {
         color: var(--Blue-color) !important;
 
     }
+
+.fg-hover-primary-color:hover{
+    color: var(--primary-color)!important;
+}
