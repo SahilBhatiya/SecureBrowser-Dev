@@ -27,6 +27,7 @@ namespace CollegeSecureBrowser.FirestoreFunctions
 
         public static string Connect()
         {
+            //var file = AppDomain.CurrentDomain.BaseDirectory + @"\FirestoreFunctions\Key.json";
             var file = AppDomain.CurrentDomain.BaseDirectory + @"\FirestoreFunctions\Key2.json";
             var json = File.ReadAllText(file, Encoding.UTF8);
 
