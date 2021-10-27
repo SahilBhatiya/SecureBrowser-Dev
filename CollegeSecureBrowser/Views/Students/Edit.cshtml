@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewData["Title"] = "Verify Students";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<a onclick="window.location = '/Dashboard/Students'" class="SettingBack mb-3 cursor-pointer smooth-transition"><span class="smooth-transition">←</span>Students</a>
+
+
+<h1 class="PageHeading mt-2">
+    <span class="pageSubTitle d-block fg-primary-color mb-1">Welcome, @ViewBag.User.Name</span>
+    Add New Student
+</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 bg-white-color my-4 mt-5 ml-3 p-4 border-16 shadow-2">
+            <form id="CreateStudent" class="row justify-content-center" onsubmit="return false;">
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Update Batch Year
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input name="BatchYear" placeholder="Enter Batch Year" value="@ViewBag.student.BatchYear" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" type="number" min="2000" max="2100" />
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Update Semester (Current : @ViewBag.student.Semester Sem)
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <select name="Semester" id="Semester" class="custom-select sources" placeholder="select Semester" value="@ViewBag.student.Semester">
+                            @for (int i = 1; i <= 10; i++)
+                            {
+                                if(ViewBag.student.Semester == i)
+                                    {
+                                                <option value="@i" selected>@i th Sem </option>
+                }
+                else
+                {
+                        <option value="@i">@i th Sem </option>
+                }
+                                
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center d-none">
+                    <div class="row justify-content-center">
+                        <label for="Email" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter Student Email Address
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="email" id="StudentEmail" name="Email" placeholder="Enter Email" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100 "
+                               value="@ViewBag.student.Email"/>
+                    </div>
+                </div>
+
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter Student Name
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="text" name="Name" placeholder="Enter Name" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" value="@ViewBag.student.Name"/>
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Mobile" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter Student's Mobile Number
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="tel" name="Mobile" placeholder="Enter Mobile Number" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" value="@ViewBag.student.Mobile" />
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="EnrollNumber" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter Student's Enrollment Number
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="text" name="EnrollNumber" placeholder="Enter Enrollment Number" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" value="@ViewBag.student.EnrollNumber"/>
+                    </div>
+                </div>
+
+                <div class="col-10 border-top my-5"></div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Country" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter Country
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="text" name="Country" placeholder="Enter Country" value="@ViewBag.student.Country" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" />
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="State" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter State
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="text" name="State" value="@ViewBag.student.State"  placeholder="Enter State" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" />
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter City
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="text" name="City" placeholder="Enter City" value="@ViewBag.student.City"  class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" />
+                    </div>
+                </div>
+
+                <div class="col-12 text-center mt-5">
+                    <button id="update-profile-button" type="submit" class="btn btn-primary-color border-10 text-white font-weight-bold letter-spacing-1 px-5 py-3 outline-none primary-btn-shadow smooth-transition" onclick="UpdateStudent()">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

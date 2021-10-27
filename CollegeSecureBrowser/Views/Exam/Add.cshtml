@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "Verify Students";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<a onclick="window.location = '/Dashboard/Exams'" class="SettingBack mb-3 cursor-pointer smooth-transition"><span class="smooth-transition">←</span>Exams</a>
+
+
+<h1 class="PageHeading mt-2">
+    <span class="pageSubTitle d-block fg-primary-color mb-1">Welcome, @ViewBag.User.Name</span>
+    Add New Exam
+</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 bg-white-color my-4 mt-5 ml-3 p-4 border-16 shadow-2">
+            <form id="CreateExam" class="row justify-content-center" onsubmit="return false;">
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Select Semester
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <select name="Semester" id="Semester" class="custom-select sources" placeholder="Select Semester" value="1">
+                            @for (int i = 1; i <= 10; i++)
+                            {
+                                <option value="@i">@i th Sem </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Start" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter Start Date And Time
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="datetime-local" name="Start" placeholder="Enter Email" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" />
+                    </div>
+                </div>
+
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="End" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter End Date And Time
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="datetime-local" name="End" placeholder="Enter Email" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" />
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter Exam Name
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="text" name="Name" placeholder="Enter Your Exam Name" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" />
+                    </div>
+                </div>
+
+                <div class="col-8 my-3 text-center">
+                    <div class="row justify-content-center">
+                        <label for="Link" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                            Enter Exam Link
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="text" name="Link" placeholder="Enter Your Exam Link" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" />
+                    </div>
+                </div>
+
+                <div class="col-12 text-center mt-5">
+                    <button id="update-profile-button" type="submit" class="btn btn-primary-color border-10 text-white font-weight-bold letter-spacing-1 px-5 py-3 outline-none primary-btn-shadow smooth-transition" onclick="AddExam()">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

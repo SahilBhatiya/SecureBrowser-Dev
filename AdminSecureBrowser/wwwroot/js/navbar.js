@@ -16,12 +16,16 @@ async function ToggleMenu() {
 async function SetNavbar() {
     const url = window.location.pathname;
 
-    $(".list").removeClass("active");
+    $(".nav-link").removeClass("active");
 
-    if (isPath(url, "Settings")) {
-        $("#SettingsNav").addClass("active");
+    if (isPath(url, "Colleges")) {
+        $("#Colleges").addClass("active");
+    } else if (isPath(url, "Admin")) {
+        $("#Admin").addClass("active");
+    } else if (isPath(url, "Settings")) {
+        $("#Settings").addClass("active");
     } else {
-        $("#DashboardNav").addClass("active");
+        $("#Home").addClass("active");
     }
 }
 

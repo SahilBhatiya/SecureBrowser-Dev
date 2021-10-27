@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Students";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h1 class="PageHeading">
+    <span class="pageSubTitle d-block fg-primary-color mb-1">Welcome @ViewBag.User.Name </span>
+    Manage Students
+</h1>
+
+
+<div class="row mt-4">
+@*    <div class="col-4 m-3 bg-white border-16 shadow-1 shadow-2-hover card border-0 p-2">
+        <a id="update-profile-button" href="/Students/Verify/" class="btn btn-primary-color border-10 text-white font-weight-bold letter-spacing-1 px-5 py-3 outline-none primary-btn-shadow smooth-transition">Update</a>
+    </div>*@
+
+    <div class="col-4 m-3 bg-white border-16 shadow-1 shadow-2-hover card border-0 p-2">
+        <div class="card-body">
+            <h4 class="PageHeading text-center font-size-20 font-weight-bold text-muted">
+                Want To Add new Student?
+            </h4>
+
+        </div>
+        <div class="card-footer text-center bg-transparent border-0">
+            <a id="update-profile-button" href="/Students/Add/" class="btn btn-primary-color border-10 text-white font-weight-bold letter-spacing-1 px-5 py-2 outline-none primary-btn-shadow smooth-transition">Add</a>
+        </div>
+    </div>
+</div>
+
+<h1 class="PageHeading mt-5">
+    Students List
+</h1>
+
+<div class="row text-center justify-content-around mt-4">
+    @foreach (var item in ViewBag.Students)
+    {
+        <div id="@item.Email" class="col-3 m-3 py-4 bg-white border-16 shadow-2 smooth-transition shadow-1-hover card border-0 p-2">
+            <div class="card-body pb-0">
+                <h4 class="PageHeading text-center font-size-20 font-weight-bold text-muted border-bottom pb-4">
+                    @item.Name <span class="pageSubTitle d-block">@item.EnrollNumber</span>
+                </h4>
+                <p class="text-muted">
+                    <span class="font-weight-bold">@item.Mobile</span>
+                    <span class="pageSubTitle d-block">@item.Email</span>
+                    
+                </p>
+                <p class="small text-muted">
+                    <span class="font-weight-bold">@item.Semester Semester</span> | Batch : @item.BatchYear
+                </p>
+            </div>
+            <div class="card-footer text-center bg-transparent border-0 pt-2">
+                <a id="update-profile-button" href="/Students/Edit?Email=@item.Email" class="btn btn-primary-color border-10 text-white font-weight-bold letter-spacing-1 px-4 mx-2 py-2 outline-none primary-btn-shadow smooth-transition">Edit</a>
+                <a id="update-profile-button" class="btn btn-primary-color border-10 text-white font-weight-bold letter-spacing-1 px-4 mx-2 py-2 outline-none primary-btn-shadow smooth-transition" onclick='RemoveStudent("@item.Email", "@item.Name", "@item.EnrollNumber")'>Remove</a>
+            </div> 
+        </div>
+
+    }
+</div>
+
+
+
+

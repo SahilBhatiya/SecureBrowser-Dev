@@ -131,11 +131,28 @@ function CreateCollege() {
         type: "POST",
         url: `/Home/CreateCollege`,
         data: data,
-        success: function (data) {
-            if (data.value.toString().includes("Exsits"))
-                DisplayMsg(1, "Error!", data.value, 4000, "b");
-            else
+        success: function (data1) {
+            if (data1.value.toString().includes("Exsits")) {
+                DisplayMsg(1, "Error!", data1.value, 4000, "b");
+            }
+
+            else {
+                console.log(data);
+                $.ajax({
+                    type: "POST",
+                    url: `/Home/LoginCollege`,
+                    data: data,
+                    success: function (data) {
+                        if (data.value == "true") {
+                            window.location = "/Dashboard/";
+                        } else {
+                            DisplayMsg(1, "Invalid Credentials!", "Please Enter Correct Credentials", 4000, "b");
+                        }
+                    }
+                });
                 window.location = "/Dashboard/";
+            }
+                
         }
     });
 }
@@ -190,4 +207,110 @@ function getFormObj(data) {
         formObj[input.name] = input.value;
     });
     return formObj;
+}
+
+
+function AddUser() {
+    const data = $('#CreateStudent').serializeArray();
+    const obj = getFormObj(data);
+    console.log(data);
+    $.ajax({
+        type: "POST",
+        url: `/Students/AddStudent`,
+        data: data,
+        success: function (data1) {
+            if (data1.value.toString().includes("Exsits")) {
+                DisplayMsg(1, "Error!", data1.value, 4000, "b");
+            }
+
+            else {
+                DisplayMsg(0, "Added!", obj.Name + " Added" , 4000, "b");
+            }
+
+        }
+    });
+
+function UpdateStudent() {
+    const data = $('#CreateStudent').serializeArray();
+    const obj = getFormObj(data);
+    console.log(data);
+    $.ajax({
+        type: "POST",
+        url: `/Students/UpdateStudent`,
+        data: data,
+        success: function (data1) {
+            if (data1.value.toString().includes("r")) {
+                DisplayMsg(1, "Error!", data1.value, 4000, "b");
+            }
+
+            else {
+                DisplayMsg(0, "Added!", obj.Name + " Updated" , 4000, "b");
+            }
+
+        }
+    });
+}
+
+function RemoveStudent(studentEmail, studentName, EnrollNumber) {
+    $.ajax({
+        type: "POST",
+        url: `/Students/Remove`,
+        data: {
+            "Email": studentEmail
+        },
+        success: function (data1) {
+            if (!data1.value.toString().includes("t")) {
+                DisplayMsg(1, "Error!", "Cannot Remove", 4000, "b");
+                document.getElementById(studentEmail).remove();
+            }
+
+            else {
+                DisplayMsg(0, "Removed!", studentName + " Removed", 4000, "b");
+            }
+
+        }
+    });
+}
+}
+
+
+function AddExam() {
+    const data = $('#CreateExam').serializeArray();
+    const obj = getFormObj(data);
+    console.log(data);
+    $.ajax({
+        type: "POST",
+        url: `/Exam/AddExam`,
+        data: data,
+        success: function (data1) {
+            if (data1.value.toString().includes("Exsits")) {
+                DisplayMsg(1, "Error!", data1.value, 4000, "b");
+            }
+            else {
+                DisplayMsg(0, "Added!", obj.Name + " Added" , 4000, "b");
+            }
+        }
+    });
+}
+
+
+function RemoveExam(Id, ExamName) {
+    $.ajax({
+        type: "POST",
+        url: `/Exam/Remove`,
+        data: {
+            "Id": Id
+        },
+        success: function (data1) {
+            if (!data1.value.toString().includes("t")) {
+                DisplayMsg(1, "Error!", "Cannot Remove", 4000, "b");
+                document.getElementById(studentEmail).remove();
+            }
+
+            else {
+                DisplayMsg(0, "Removed!", ExamName + " Removed", 4000, "b");
+            }
+
+        }
+    });
 }

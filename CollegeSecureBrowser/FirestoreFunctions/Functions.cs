@@ -255,5 +255,271 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                 return null;
             }
         }
+
+
+
+
+
+
+
+        private static async Task<bool> StudentExsits(string email, String StudentEmail)
+        {
+            Connect();
+            bool isExsits = false;
+
+            DocumentReference DOC = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Students")
+                                   .Document(StudentEmail);
+
+            DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                isExsits = true;
+            }
+
+            return isExsits;
+        }
+
+
+        public static string CreateStudent(Student model)
+        {
+            Connect();
+            var task = StudentExsits(model.CollegeEmail, model.Email);
+            task.Wait();
+            bool isValid = task.Result;
+
+            if (!isValid)
+            {
+                DocumentReference DOC = database
+                                        .Collection("College")
+                                        .Document(model.CollegeEmail)
+                                        .Collection("Students")
+                                        .Document(model.Email);
+
+                Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {"BatchYear", model.BatchYear },
+                {"Semester", model.Semester },
+
+                {"Email", model.Email },
+                {"Name", model.Name },
+                {"Mobile", model.Mobile },
+                {"EnrollNumber", model.EnrollNumber },
+
+                {"Country", model.Country },
+                {"State", model.State },
+                {"City", model.City },
+
+                {"Password", model.Email },
+                {"Role", "Student" },
+
+            };
+                DOC.SetAsync(data);
+
+                return "Student Created";
+            }
+            else
+            {
+                return "Student Already Exsits";
+            }
+
+        }
+
+        public static string UpdateStudent(Student model)
+        {
+            Connect();
+            var task = StudentExsits(model.CollegeEmail, model.Email);
+            task.Wait();
+            bool isValid = task.Result;
+
+            if (isValid)
+            {
+                DocumentReference DOC = database
+                                        .Collection("College")
+                                        .Document(model.CollegeEmail)
+                                        .Collection("Students")
+                                        .Document(model.Email);
+
+                Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {"BatchYear", model.BatchYear },
+                {"Semester", model.Semester },
+
+                {"Name", model.Name },
+                {"Mobile", model.Mobile },
+                {"EnrollNumber", model.EnrollNumber },
+
+                {"Country", model.Country },
+                {"State", model.State },
+                {"City", model.City },
+
+                {"Password", model.Email },
+                {"Role", "Student" },
+
+            };
+                DOC.UpdateAsync(data);
+
+                return "Student Updated";
+            }
+            else
+            {
+                return "Student Doesnot Exsits";
+            }
+
+        }
+
+        public static async Task<FirestoreStudent> GetStudent(string email, String studentEmail)
+        {
+            Connect();
+
+            DocumentReference DOC = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Students")
+                                   .Document(studentEmail);
+
+            DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                FirestoreStudent model = snapshot.ConvertTo<FirestoreStudent>();
+
+                return model;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static async Task<List<FirestoreStudent>> GetAllStudent(string email)
+        {
+            Connect();
+            List<FirestoreStudent> Students = new List<FirestoreStudent>();
+
+            Query allStudents = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Students");
+
+            QuerySnapshot allStudentsSnapshot = await allStudents.GetSnapshotAsync();
+
+            foreach (DocumentSnapshot documentSnapshot in allStudentsSnapshot.Documents)
+            {
+
+                FirestoreStudent model = documentSnapshot.ConvertTo<FirestoreStudent>();
+                Students.Add(model);
+            }
+            return Students;
+        }
+
+
+
+        internal static async Task<bool> DeleteStudent(string Email, string StudentEmail)
+        {
+            Boolean isDeleted = false;
+
+            Connect();
+            DocumentReference DOC = database
+                                   .Collection("College")
+                                   .Document(Email)
+                                   .Collection("Students")
+                                   .Document(StudentEmail);
+
+                var result = await DOC.DeleteAsync();
+                if (result != null)
+                {
+                    isDeleted = true;
+                }
+                else
+                {
+                    isDeleted = false;
+                }
+
+            return isDeleted;
+        }
+
+        public async static Task<string> CreateExam(Exam model)
+        {
+            Connect();
+            model.Id = Guid.NewGuid().ToString();
+            DocumentReference DOC = database
+                                        .Collection("College")
+                                        .Document(model.CollegeEmail)
+                                        .Collection("Exams")
+                                        .Document(model.Id);
+
+
+            model.Start = DateTime.SpecifyKind(new DateTime(model.Start.Ticks) , DateTimeKind.Utc);
+
+            model.End = DateTime.SpecifyKind(new DateTime(model.End.Ticks), DateTimeKind.Utc);
+
+            Dictionary<string, object> data = new Dictionary<string, object>()
+                {
+                    {"Id", model.Id },
+                    {"Semester", model.Semester },
+
+                    {"Name", model.Name },
+
+                    {"Start", model.Start },
+                    {"End", model.End },
+                    {"Link", model.Link },
+
+                    {"CollegeEmail", model.CollegeEmail },
+
+                };
+            await DOC.SetAsync(data);
+
+            return "Exam Created";
+        }
+
+        internal static async Task<bool> DeleteExam(string Email, string Id)
+        {
+            Boolean isDeleted = false;
+
+            Connect();
+            DocumentReference DOC = database
+                                   .Collection("College")
+                                   .Document(Email)
+                                   .Collection("Exams")
+                                   .Document(Id);
+
+            var result = await DOC.DeleteAsync();
+            if (result != null)
+            {
+                isDeleted = true;
+            }
+            else
+            {
+                isDeleted = false;
+            }
+
+            return isDeleted;
+        }
+
+        public static async Task<List<FirestoreExam>> GetAllExams(string email)
+        {
+            Connect();
+            List<FirestoreExam> lists = new List<FirestoreExam>();
+
+            Query allData = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Exams");
+
+            QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
+
+            foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
+            {
+
+                FirestoreExam model = documentSnapshot.ConvertTo<FirestoreExam>();
+                lists.Add(model);
+            }
+            return lists;
+        }
+
     }
 }

@@ -26,13 +26,47 @@ namespace CollegeSecureBrowser.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
 
+        public async Task<IActionResult> Exams()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                Task<FirestoreCollege> user = FirestoreFunctions.Functions.GetCollege(User.Identity.Name);
+                user.Wait();
+                ViewBag.User = user.Result;
+
+                List<FirestoreExam> Exams = await FirestoreFunctions.Functions.GetAllExams(User.Identity.Name);
+
+                ViewBag.Exams = Exams;
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
 
-        public IActionResult Ransdfjkn()
+        public async Task<IActionResult> Students()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                Task<FirestoreCollege> user = FirestoreFunctions.Functions.GetCollege(User.Identity.Name);
+                user.Wait();
+                ViewBag.User = user.Result;
+
+                List<FirestoreStudent> students = await FirestoreFunctions.Functions.GetAllStudent(User.Identity.Name);
+
+                ViewBag.Students = students;
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult Settings()
