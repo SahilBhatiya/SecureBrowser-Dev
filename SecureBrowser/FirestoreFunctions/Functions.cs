@@ -5,12 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using CollegeSecureBrowser.OtherFunctions.Functions;
-using CollegeSecureBrowser.OtherFunctions.Models;
+using SecureBrowser.OtherFunctions.Functions;
+using SecureBrowser.OtherFunctions.Models;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using Google.Cloud.Firestore.V1;
 using Grpc.Core;
+using SecureBrowser.OtherFunctions.Models;
 using static Google.Cloud.Firestore.V1.Firestore;
 
 namespace SecureBrowser.FirestoreFunctions
@@ -38,9 +39,9 @@ namespace SecureBrowser.FirestoreFunctions
                 //database = FirestoreDb.Create("exam-proctor-8d533", builder.Build());
                 database = FirestoreDb.Create("exam-proctor-project", builder.Build());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Console.WriteLine("\n\n\n\n\n\nError \n"+ e.ToString() + "\n\n"+ e.InnerException +"\n\n\n\n\n");
+                Console.WriteLine("\n\n\n\n\n\nError \n" + e.ToString() + "\n\n" + e.InnerException + "\n\n\n\n\n");
             }
 
             return "Success";
@@ -82,6 +83,62 @@ namespace SecureBrowser.FirestoreFunctions
 
 
             return isCollegeDeleted;
+        }
+
+
+        internal static async Task<bool> VerifyStudent(string email, string studentEmail, string password)
+        {
+            Connect();
+            DocumentReference DOC = database
+                       .Collection("College")
+                       .Document(email)
+                       .Collection("Students")
+                       .Document(studentEmail);
+            DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                FirestoreStudent firestoreCollege = snapshot.ConvertTo<FirestoreStudent>();
+                if (password == firestoreCollege.Password)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        internal static async Task<FirestoreStudent> GetStudent(string email, string studentEmail)
+        {
+            Connect();
+            bool isExsits = false;
+
+            DocumentReference DOC = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Students")
+                                   .Document(studentEmail);
+
+            DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                FirestoreStudent firestoreCollege = snapshot.ConvertTo<FirestoreStudent>();
+
+                return firestoreCollege;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static async Task<bool> VerifyCollege(College college)
@@ -255,5 +312,72 @@ namespace SecureBrowser.FirestoreFunctions
                 return null;
             }
         }
+
+        public static async Task<List<FirestoreCollege>> GetAllCollege()
+        {
+            Connect();
+            List<FirestoreCollege> models = new List<FirestoreCollege>();
+
+            Query allData = database
+                                   .Collection("College");
+
+            QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
+
+            foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
+            {
+
+                FirestoreCollege model = documentSnapshot.ConvertTo<FirestoreCollege>();
+                models.Add(model);
+            }
+            Task.WaitAll();
+            return models;
+        }
+
+        public static async Task<List<FirestoreExam>> GetAllExams(string email)
+        {
+            Connect();
+            List<FirestoreExam> lists = new List<FirestoreExam>();
+
+            Query allData = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Exams");
+
+            QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
+
+            foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
+            {
+
+                FirestoreExam model = documentSnapshot.ConvertTo<FirestoreExam>();
+                lists.Add(model);
+            }
+            return lists;
+        }
+
+
+        public static async Task<List<FirestoreExam>> GetAllExamsInSem(string email, long sem)
+        {
+            Connect();
+            List<FirestoreExam> lists = new List<FirestoreExam>();
+
+            Query allData = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Exams");
+
+            QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
+
+            foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
+            {
+
+                FirestoreExam model = documentSnapshot.ConvertTo<FirestoreExam>();
+                lists.Add(model);
+            }
+            return lists.Where(x => x.Semester == sem.ToString()).ToList();
+        }
+
+
+
+
     }
 }

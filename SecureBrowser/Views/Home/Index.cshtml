@@ -1,46 +1,57 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using SecureBrowser.OtherFunctions.Models;
+@using SecureBrowser.FirestoreFunctions;
 
-<div class="row justify-content-center">
+<form class="row justify-content-center">
     <div class="col-lg-12 col-11 mt-3">
-        <div class="row mt-5 text-center border-16 bg-blue-light p-5 h-90">
+        <div class="row justify-content-center mt-5 text-center border-16 bg-blue-light p-5 h-90">
 
             <div class="col-12">
                 <h3 class="font-weight-bold">Student Exam Portal</h3>
-                <p class="font-weight-bold small">
-                    Your Ip Address : @ViewBag.IpAddress
-                </p>
             </div>
 
             <div class="col-12 my-2 text-center">
-                <select name="sources" id="sources" class="custom-select sources" placeholder="Select College">
-                    <option value="UVPCE">U. V. Patel College Of Engineering</option>
-                    <option value="Saffrony">Saffrony</option>
-                    <option value="profile">Ahmedabad University</option>
-                    <option value="word">Gujarat Power</option>
-                    <option value="word">Nirma</option>
-                    <option value="word">Lovely Proffesional University</option>
+                <select name="sources" id="College" class="custom-select sources display-select" value="" placeholder="Select College">
+                    @foreach (FirestoreCollege m in ViewBag.Colleges)
+                    {
+                        <option value="@m.Email">@m.Name</option>
+                    }
                 </select>
             </div>
 
-            <div class="col-12 my-2 text-center">
-                <select name="sources" id="sources" class="custom-select sources" placeholder="Select Exam">
-                    <option value="examcode">Sem 7: CP</option>
-                    <option value="examcode">Sem 5: SP</option>
-                    <option value="examcode">Sem 3: DP</option>
-                    <option value="examcode">Sem 1: JP</option>
-                </select>
+            <div class="col-4 my-3 text-center">
+                <div class="row justify-content-center">
+                    <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                        Enter Email
+                    </label>
+                </div>
+                <div class="row justify-content-center">
+                    <input name="StudentEmail" id="StudentEmail" placeholder="Enter Email" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" type="email" />
+                </div>
+            </div>
+
+            <div class="col-12">
+
+            </div>
+
+            <div class="col-4 my-3 text-center">
+                <div class="row justify-content-center">
+                    <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
+                        Enter Password
+                    </label>
+                </div>
+                <div class="row justify-content-center">
+                    <input name="Password" id="Password" placeholder="Enter Password" class="py-3 px-4 border-0 border-12 shadow-1 bg-blue-light-hover smooth-transition font-weight-bold w-100" type="password" />
+                </div>
             </div>
 
             <div class="col-12 my-3 mt-5">
-                <a onclick="StartInterval()" class="bg-blue text-white shadow-blue border-10 px-5 py-3 bg-blue-hover shadow-blue-hover smooth-transition cursor-pointer mx-5">
-                    Start Exam
+                <a onclick="LoginStudent()" class="bg-blue text-white shadow-blue border-10 px-5 py-3 bg-blue-hover shadow-blue-hover smooth-transition cursor-pointer mx-5">
+                    Login
                 </a>
                 <br />
-                <p class="mt-4 text-muted font-weight-bolder">
-                    Time: 10:00 AM To 12:00 AM
-                </p>
             </div>
 
 
@@ -52,4 +63,6 @@
 
         </div>
     </div>
-</div>
+</form>
+
+

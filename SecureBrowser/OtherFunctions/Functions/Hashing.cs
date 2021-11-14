@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollegeSecureBrowser.OtherFunctions.Functions
+namespace SecureBrowser.OtherFunctions.Functions
 {
     public class Hashing
     {

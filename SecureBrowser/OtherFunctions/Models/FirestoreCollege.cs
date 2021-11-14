@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CollegeSecureBrowser.OtherFunctions.Models
+namespace SecureBrowser.OtherFunctions.Models
 {
     [FirestoreData]
     public class FirestoreCollege
