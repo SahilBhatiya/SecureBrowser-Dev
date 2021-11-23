@@ -36,6 +36,35 @@ namespace CollegeSecureBrowser.Controllers
             return Ok(Json(JsonConvert.SerializeObject(task.Result)));
         }
 
+        public IActionResult Edit(string Id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                Task<FirestoreCollege> user = FirestoreFunctions.Functions.GetCollege(User.Identity.Name);
+                user.Wait();
+                ViewBag.User = user.Result;
+
+                Task<FirestoreExam> exam = FirestoreFunctions.Functions.GetExam(User.Identity.Name, Id);
+                exam.Wait();
+                ViewBag.exam = exam.Result;
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult EditExam(Exam model)
+        {
+            model.CollegeEmail = User.Identity.Name;
+            var task = FirestoreFunctions.Functions.UpdateExamAsync(model);
+            task.Wait();
+            return Ok(Json(JsonConvert.SerializeObject(task.Result)));
+        }
+
         [HttpPost]
         public IActionResult Remove(String Id)
         {

@@ -38,9 +38,9 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                 //database = FirestoreDb.Create("exam-proctor-8d533", builder.Build());
                 database = FirestoreDb.Create("exam-proctor-project", builder.Build());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Console.WriteLine("\n\n\n\n\n\nError \n"+ e.ToString() + "\n\n"+ e.InnerException +"\n\n\n\n\n");
+                Console.WriteLine("\n\n\n\n\n\nError \n" + e.ToString() + "\n\n" + e.InnerException + "\n\n\n\n\n");
             }
 
             return "Success";
@@ -96,7 +96,7 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             if (snapshot.Exists)
             {
                 FirestoreCollege firestoreCollege = snapshot.ConvertTo<FirestoreCollege>();
-                if(college.Password == firestoreCollege.Password)
+                if (college.Password == firestoreCollege.Password)
                 {
                     return true;
                 }
@@ -104,7 +104,7 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                 {
                     return false;
                 }
-                
+
             }
             else
             {
@@ -157,7 +157,7 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             {
                 FirestoreCollege firestoreCollege = snapshot.ConvertTo<FirestoreCollege>();
 
-                if(firestoreCollege.Password == Hashing.ComputeSha256Hash(college.Password))
+                if (firestoreCollege.Password == Hashing.ComputeSha256Hash(college.Password))
                 {
                     Dictionary<string, object> data = new Dictionary<string, object>()
                     {
@@ -225,7 +225,7 @@ namespace CollegeSecureBrowser.FirestoreFunctions
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
-            if(snapshot.Exists)
+            if (snapshot.Exists)
             {
                 isExsits = true;
             }
@@ -255,8 +255,6 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                 return null;
             }
         }
-
-
 
 
 
@@ -429,15 +427,15 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                                    .Collection("Students")
                                    .Document(StudentEmail);
 
-                var result = await DOC.DeleteAsync();
-                if (result != null)
-                {
-                    isDeleted = true;
-                }
-                else
-                {
-                    isDeleted = false;
-                }
+            var result = await DOC.DeleteAsync();
+            if (result != null)
+            {
+                isDeleted = true;
+            }
+            else
+            {
+                isDeleted = false;
+            }
 
             return isDeleted;
         }
@@ -453,7 +451,7 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                                         .Document(model.Id);
 
 
-            model.Start = DateTime.SpecifyKind(new DateTime(model.Start.Ticks) , DateTimeKind.Utc);
+            model.Start = DateTime.SpecifyKind(new DateTime(model.Start.Ticks), DateTimeKind.Utc);
 
             model.End = DateTime.SpecifyKind(new DateTime(model.End.Ticks), DateTimeKind.Utc);
 
@@ -520,6 +518,95 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             }
             return lists;
         }
+
+        public static async Task<FirestoreExam> GetExam(string email, String Id)
+        {
+            Connect();
+
+            DocumentReference DOC = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Exams")
+                                   .Document(Id);
+
+            DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                FirestoreExam model = snapshot.ConvertTo<FirestoreExam>();
+
+                return model;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private static async Task<bool> ExamExsits(string email, String Id)
+        {
+            Connect();
+            bool isExsits = false;
+
+            DocumentReference DOC = database
+                                   .Collection("College")
+                                   .Document(email)
+                                   .Collection("Exams")
+                                   .Document(Id);
+
+            DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                isExsits = true;
+            }
+
+            return isExsits;
+        }
+
+
+        public static async Task<string> UpdateExamAsync(Exam model)
+        {
+            Connect();
+            var task = ExamExsits(model.CollegeEmail, model.Id);
+            task.Wait();
+            bool isValid = task.Result;
+
+            if (isValid)
+            {
+                DocumentReference DOC = database
+                                        .Collection("College")
+                                        .Document(model.CollegeEmail)
+                                        .Collection("Exams")
+                                        .Document(model.Id);
+
+                model.Start = DateTime.SpecifyKind(new DateTime(model.Start.Ticks), DateTimeKind.Utc);
+
+                model.End = DateTime.SpecifyKind(new DateTime(model.End.Ticks), DateTimeKind.Utc);
+
+                Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {"Start", model.Start },
+                {"End", model.End },
+
+                {"Name", model.Name },
+                {"Link", model.Link },
+
+                {"Semester", model.Semester },
+
+            };
+                var task1 = await DOC.UpdateAsync(data);
+
+                return "true";
+            }
+            else
+            {
+                return "false";
+            }
+
+        }
+
+
 
     }
 }

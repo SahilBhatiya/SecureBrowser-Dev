@@ -40,6 +40,10 @@
                 <div class="row justify-content-center">
                     <label for="Name" class="w-100 fg-secondary font-weight-bold letter-spacing-1 text-center text-lg-left">
                         Enter Password
+                        <span class="float-right bg-blue text-white shadow-blue border-10 px-2 py-1 bg-blue-hover shadow-blue-hover smooth-transition cursor-pointer" onclick="ShowHidePassword(this)">
+                            View
+                        </span>
+
                     </label>
                 </div>
                 <div class="row justify-content-center">
@@ -66,3 +70,17 @@
 </form>
 
 
+@section Scripts{
+    <script>
+        function ShowHidePassword(elem){
+            const x = document.getElementById("Password")
+            if(x.type == "text"){
+                document.getElementById("Password").type = "password"
+            }
+            else{
+                document.getElementById("Password").type = "text"
+            }
+
+        }
+    </script>
+}

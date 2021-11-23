@@ -76,3 +76,40 @@ function DeleteAccount() {
         }
     });
 }
+
+
+function UpdateStudent() {
+    const data = $('#UpdateStudent').serializeArray();
+
+    $.ajax({
+        type: "POST",
+        url: `/Students/UpdateStudent`,
+        data: data,
+        success: function (data) {
+            console.log(data.value)
+            if (data.value.includes("Updated")) {
+                DisplayMsg(0, "Updated!", "Student Details Updated Successfull", 4000, "b");
+            } else {
+                DisplayMsg(1, "Error!", "Student Details Cannot Be Updated", 4000, "b");
+            }
+        }
+    });
+}
+
+function UpdateExam() {
+    const data = $('#UpdateExam').serializeArray();
+
+    $.ajax({
+        type: "POST",
+        url: `/Exam/EditExam`,
+        data: data,
+        success: function (data) {
+            console.log(data.value)
+            if (data.value.includes("true")) {
+                DisplayMsg(0, "Updated!", "Exam Details Updated Successfull", 4000, "b");
+            } else {
+                DisplayMsg(1, "Error!", "Exam Details Cannot Be Updated", 4000, "b");
+            }
+        }
+    });
+}
