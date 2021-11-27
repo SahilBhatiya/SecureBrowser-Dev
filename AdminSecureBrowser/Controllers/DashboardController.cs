@@ -28,12 +28,13 @@ namespace AdminSecureBrowser.Controllers
 
         }
 
-        public IActionResult Colleges()
+        public async Task<IActionResult> CollegesAsync()
         {
             Task<FirestoreAdmin> user = FirestoreFunctions.Functions.GetAdmin(User.Identity.Name);
             user.Wait();
             ViewBag.User = user.Result;
-            return View();
+            List<FirestoreCollege> model = await FirestoreFunctions.Functions.GetAllCollege();
+            return View(model);
         }
 
         public IActionResult Admin()

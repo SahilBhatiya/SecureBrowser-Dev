@@ -52,7 +52,7 @@ function StopInterval() {
 
 function openFullscreen() {
     elem.requestFullscreen();
-} 
+}
 
 function ExitFullscreen() {
     elem.exitFullscreen();
@@ -190,4 +190,91 @@ function getFormObj(data) {
         formObj[input.name] = input.value;
     });
     return formObj;
+}
+
+
+function UpdateCollege() {
+    const data = $('#UpdateCollege').serializeArray();
+    const obj = getFormObj(data);
+    console.log(data);
+    $.ajax({
+        type: "POST",
+        url: `/Colleges/EditPost`,
+        data: data,
+        success: function (data1) {
+            if (data1.value.toString().includes("l")) {
+                DisplayMsg(1, "Error!", data1.value, 4000, "b");
+            }
+            else {
+                DisplayMsg(0, "Updated!", obj.Name + " Updated", 4000, "b");
+            }
+
+        }
+    });
+}
+
+
+function ResetCollegePassword(email) {
+    $.ajax({
+        type: "POST",
+        url: `/Colleges/ResetPassword`,
+        data: {
+            "email": email
+        },
+        success: function (data1) {
+            if (data1.value.toString().includes("l")) {
+                DisplayMsg(1, "Error!", "Cannot Reset", 4000, "b");
+            }
+            else {
+                DisplayMsg(0, "Updated!", "Password Reset", 4000, "b");
+            }
+
+        }
+    });
+}
+
+
+
+function RemoveCollege(email) {
+    $.ajax({
+        type: "POST",
+        url: `/Colleges/DeleteCollege`,
+        data: {
+            "email": email
+        },
+        success: function (data1) {
+            if (data1.value.toString().includes("l")) {
+                DisplayMsg(1, "Error!", "Cannot Remove", 4000, "b");
+            }
+            else {
+                DisplayMsg(0, "Removed!", "College Removed", 4000, "b");
+                document.getElementById(email).remove();
+            }
+
+        }
+    });
+
+}
+
+
+function CreateCollege() {
+    const data = $('#CreateCollege').serializeArray();
+
+    const obj = getFormObj(data);
+
+    $.ajax({
+        type: "POST",
+        url: `/Colleges/CreateCollege`,
+        data: data,
+        success: function (data1) {
+            if (data1.value.toString().includes("Exsits")) {
+                DisplayMsg(1, "Error!", data1.value, 4000, "b");
+            }
+
+            else {
+                DisplayMsg(0, "Created!", "College Created", 4000, "b");
+            }
+
+        }
+    });
 }
