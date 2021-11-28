@@ -1,0 +1,42 @@
+﻿@using CollegeSecureBrowser.OtherFunctions.Models
+@{
+    ViewData["Title"] = "ViewExam";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+@model List<FirestoreStudentCopied>
+
+
+<a onclick="window.location = '/Dashboard/Exams'" class="SettingBack mb-3 cursor-pointer smooth-transition"><span class="smooth-transition">←</span>Exams</a>
+
+<h1 class="PageHeading">
+    Copy Cases
+</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                View
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    <a href="/Exam/Copied?examId=@ViewBag.ExamId&studentEmail=@item.Email">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+

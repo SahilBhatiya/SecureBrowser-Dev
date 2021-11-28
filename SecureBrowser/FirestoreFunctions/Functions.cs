@@ -153,7 +153,7 @@ namespace SecureBrowser.FirestoreFunctions
             if (snapshot.Exists)
             {
                 FirestoreCollege firestoreCollege = snapshot.ConvertTo<FirestoreCollege>();
-                if(college.Password == firestoreCollege.Password)
+                if (college.Password == firestoreCollege.Password)
                 {
                     return true;
                 }
@@ -161,7 +161,7 @@ namespace SecureBrowser.FirestoreFunctions
                 {
                     return false;
                 }
-                
+
             }
             else
             {
@@ -214,7 +214,7 @@ namespace SecureBrowser.FirestoreFunctions
             {
                 FirestoreCollege firestoreCollege = snapshot.ConvertTo<FirestoreCollege>();
 
-                if(firestoreCollege.Password == Hashing.ComputeSha256Hash(college.Password))
+                if (firestoreCollege.Password == Hashing.ComputeSha256Hash(college.Password))
                 {
                     Dictionary<string, object> data = new Dictionary<string, object>()
                     {
@@ -282,7 +282,7 @@ namespace SecureBrowser.FirestoreFunctions
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
-            if(snapshot.Exists)
+            if (snapshot.Exists)
             {
                 isExsits = true;
             }
@@ -375,6 +375,57 @@ namespace SecureBrowser.FirestoreFunctions
             }
             return lists.Where(x => x.Semester == sem.ToString()).ToList();
         }
+
+
+
+        internal static async Task<bool> SendCopyData(string clgEmail, string ExamId, string studentEmail, string Image)
+        {
+            Connect();
+            StudentCopied student = new StudentCopied();
+
+            DocumentReference DOC = database
+                       .Collection("College")
+                       .Document(clgEmail)
+                       .Collection("Exams")
+                       .Document(ExamId)
+                       .Collection("Copied")
+                       .Document(studentEmail)
+                       .Collection("Images")
+                       .Document(student.Id);
+
+            student.Email = studentEmail;
+            student.Image = Image;
+
+            Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {"Email", student.Email },
+                {"Image", student.Image },
+                {"crrTime", student.crrTime },
+            };
+
+            await DOC.SetAsync(data);
+
+            DocumentReference DOC1 = database
+                       .Collection("College")
+                       .Document(clgEmail)
+                       .Collection("Exams")
+                       .Document(ExamId)
+                       .Collection("Copied")
+                       .Document(studentEmail);
+
+            Dictionary<string, object> data1 = new Dictionary<string, object>()
+            {
+                {"Email", student.Email },
+            };
+
+            await DOC1.SetAsync(data1);
+
+
+            return true;
+        }
+
+
+
 
 
 

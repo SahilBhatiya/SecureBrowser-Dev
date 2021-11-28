@@ -73,7 +73,7 @@ namespace SecureBrowser.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme, principal, props
                     ).Wait();
 
-            return Ok(Json(JsonConvert.SerializeObject(true)));
+                return Ok(Json(JsonConvert.SerializeObject(true)));
             }
             else
             {
@@ -81,7 +81,7 @@ namespace SecureBrowser.Controllers
             }
         }
 
-        
+
         public async Task<IActionResult> SelectExam(string clg, string email, string pass)
         {
             var isvalid = await FirestoreFunctions.Functions.VerifyStudent(clg, email, pass);
@@ -107,6 +107,20 @@ namespace SecureBrowser.Controllers
             }
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> SendCopyData(string StudentEmail, string Image, string examId, string clgEmail)
+        {
+            bool result = await FirestoreFunctions.Functions.SendCopyData(clgEmail, examId, StudentEmail, Image);
+            return Ok(Json(JsonConvert.SerializeObject(result)));
+
+        }
+
+
+
+
+
+
         [HttpPost]
         public async Task<IActionResult> LoadExam(string clg, string email, string pass, string exam)
         {
@@ -131,9 +145,12 @@ namespace SecureBrowser.Controllers
                     End = End.AddHours(-6).AddMinutes(30);
 
                     return Ok(Json(JsonConvert.SerializeObject(
-                        new { Exam = SelectedExam, 
-                            Start = Start, 
-                            End = End}
+                        new
+                        {
+                            Exam = SelectedExam,
+                            Start = Start,
+                            End = End
+                        }
                     )));
                 }
                 else

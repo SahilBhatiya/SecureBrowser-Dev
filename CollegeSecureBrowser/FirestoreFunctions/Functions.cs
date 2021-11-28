@@ -607,6 +607,57 @@ namespace CollegeSecureBrowser.FirestoreFunctions
         }
 
 
+        internal static async Task<List<FirestoreStudentCopied>> GetAllCopyCasesByExamId(string clgEmail, string ExamId)
+        {
+            Connect();
+            List<FirestoreStudentCopied> lists = new List<FirestoreStudentCopied>();
+
+            Query allData = database
+                       .Collection("College")
+                       .Document(clgEmail)
+                       .Collection("Exams")
+                       .Document(ExamId)
+                       .Collection("Copied");
+
+            QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
+
+            foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
+            {
+
+                FirestoreStudentCopied model = documentSnapshot.ConvertTo<FirestoreStudentCopied>();
+                lists.Add(model);
+            }
+            return lists;
+        }
+
+
+        internal static async Task<List<FirestoreStudentCopied>> GetAllCopyCasesByExamIdAndStudentEmail(string clgEmail, string ExamId, string studentEmail)
+        {
+            Connect();
+            List<FirestoreStudentCopied> lists = new List<FirestoreStudentCopied>();
+
+            Query allData = database
+                       .Collection("College")
+                       .Document(clgEmail)
+                       .Collection("Exams")
+                       .Document(ExamId)
+                       .Collection("Copied")
+                       .Document(studentEmail)
+                       .Collection("Images");
+
+            QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
+
+            foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
+            {
+
+                FirestoreStudentCopied model = documentSnapshot.ConvertTo<FirestoreStudentCopied>();
+                lists.Add(model);
+            }
+            return lists;
+        }
+
+
+
 
     }
 }

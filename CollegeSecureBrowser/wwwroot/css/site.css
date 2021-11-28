@@ -713,3 +713,40 @@ a:hover {
 .font-size-20 {
     font-size: 20px !important;
 }
+
+*{
+    transition: all .5s;
+}
+
+
+table {
+    margin-top: 60px;
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    table td, table th {
+        background-color: #fff;
+        border: 1px solid #fff;
+        padding: 8px;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    table tr:hover {
+        background-color: #6c757d !important;
+    }
+
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: var(--Blue-color);
+            color: white;
+        }

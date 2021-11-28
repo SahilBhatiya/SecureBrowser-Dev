@@ -73,5 +73,20 @@ namespace CollegeSecureBrowser.Controllers
             return Ok(Json(JsonConvert.SerializeObject(task.Result)));
         }
 
+
+        public async Task<IActionResult> ViewExam(String examId)
+        {
+            ViewBag.ExamId = examId;
+            List<FirestoreStudentCopied> models = await FirestoreFunctions.Functions.GetAllCopyCasesByExamId(User.Identity.Name, examId);
+            return View(models);
+        }
+
+        public async Task<IActionResult> Copied(String examId, string studentEmail)
+        {
+            ViewBag.ExamId = examId;
+            List<FirestoreStudentCopied> models = await FirestoreFunctions.Functions.GetAllCopyCasesByExamIdAndStudentEmail(User.Identity.Name, examId, studentEmail);
+            return View(models);
+        }
+
     }
 }

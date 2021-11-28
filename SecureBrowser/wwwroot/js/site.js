@@ -4,12 +4,14 @@ const { getCurrentWindow, globalShortcut } = require('electron').remote;
 const win = remote.getCurrentWindow();
 var IntervalOfShow, IntervalOfFullscreen, elem = document.documentElement, isExamStatred;
 
+win.webviewTag = true;
+
 function Reload() {
     window.location.reload();
 }
 
 function CloseWindow() {
-    childWindow.close();
+    StopInterval();
     win.close();
 }
 
@@ -30,6 +32,15 @@ function MaximizeeWindow() {
     }
 
 }
+
+function startFunctionOnLoad() {
+    if (window.location.toString().includes("/Home/CurrentExam")) {
+        setTimeout(StartInterval(120), 3000)
+
+    }
+}
+startFunctionOnLoad()
+
 
 function StartInterval(fps = 240) {
     StopInterval();
@@ -53,7 +64,7 @@ function StopInterval() {
 
 function openFullscreen() {
     elem.requestFullscreen();
-} 
+}
 
 function ExitFullscreen() {
     elem.exitFullscreen();
@@ -195,8 +206,8 @@ function LoadExamModal() {
                     $("#ExamName").text(`Name : ${Exam.Name}`)
                     $("#ExamStartTime").text(`Start Time : ${startTime}`)
                     $("#ExamEndTime").text(`End Time : ${endTime}`)
-                    /*document.getElementById("ExamLink").href = `/Home/CurrentExam?examId=${Exam.Id}&studentEmail=${GetURLParameter('email')}&clgEmail=${GetURLParameter('clg')}&pass=${GetURLParameter('pass')}&endTime=${endTime}`*/
                     document.getElementById("ExamLink").href = `${Exam.Link}`
+                    document.getElementById("ExamLink").href = `/Home/CurrentExam?examId=${Exam.Id}&studentEmail=${GetURLParameter('email')}&clgEmail=${GetURLParameter('clg')}&pass=${GetURLParameter('pass')}&endTime=${endTime}`
                     $('#ExamModal').modal('show')
                     ExamLink = Exam.Link
                 }
@@ -246,28 +257,4 @@ onload = () => {
 
     webview.addEventListener('did-start-loading', loadstart)
     webview.addEventListener('did-stop-loading', loadstop)
-}
-
-var childWindow
-
-function LoadExamWindow() {
-    childWindow = new BrowserWindow({ parent: win })
-    childWindow.loadURL(ExamLink)
-    StartChildInterval()
-    childWindow.show()
-}
-
-function StartChildInterval(fps = 240) {
-    StopChildInterval();
-    openFullscreen();
-    IntervalOfShow = setInterval(() => {
-        childWindow.show();
-    }, 1000 / fps);
-    isExamStatred = true;
-}
-
-function StopChildInterval() {
-    isExamStatred = false;
-    //childWindow.setAlwaysOnTop(false, 'screen');
-    clearInterval(IntervalOfShow);
 }

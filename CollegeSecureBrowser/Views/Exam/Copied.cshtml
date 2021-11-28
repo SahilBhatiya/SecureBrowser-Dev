@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Copied";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+@using CollegeSecureBrowser.OtherFunctions.Models
+
+@model List<FirestoreStudentCopied>
+
+
+<a onclick="window.location = '/Exam/ViewExam?examId=@ViewBag.ExamId'" class="SettingBack mb-3 cursor-pointer smooth-transition"><span class="smooth-transition">←</span>Exams</a>
+
+<h1 class="PageHeading">
+    Copy Cases By @Model[0].Email
+</h1>
+
+
+<div class="row justify-content-center mt-5">
+    @foreach (var item in Model)
+    {
+        <div class="col-3 m-3 border-12 shadow-2 shadow-1-hover bg-white p-2">
+            <div class="img-container m-1 mt-2 mb-3 text-center border-12">
+                <img src="@item.Image" style="width: 90%" class="border-12">
+            </div>
+            <p class="text-center font-weight-bold">
+                @item.crrTime
+            </p>
+        </div>
+    }
+

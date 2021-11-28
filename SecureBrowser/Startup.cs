@@ -27,7 +27,8 @@ namespace SecureBrowser
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options => {
+            .AddCookie(options =>
+            {
                 options.LoginPath = "/Home/Index";
                 options.Cookie.Name = "ExamProctor";
 
@@ -63,8 +64,10 @@ namespace SecureBrowser
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Task.Run(async () => {
-                await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions() {
+            Task.Run(async () =>
+            {
+                await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions()
+                {
                     Frame = false,
                     Center = true,
                     MinWidth = 375,
@@ -78,7 +81,8 @@ namespace SecureBrowser
                     {
                         EnableRemoteModule = true,
                         ContextIsolation = true,
-                        DevTools = true
+                        DevTools = true,
+                        WebviewTag = true
                     }
                 });
             });
