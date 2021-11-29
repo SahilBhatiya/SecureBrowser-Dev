@@ -229,49 +229,49 @@ function AddUser() {
 
         }
     });
-
-    function UpdateStudent() {
-        const data = $('#CreateStudent').serializeArray();
-        const obj = getFormObj(data);
-        console.log(data);
-        $.ajax({
-            type: "POST",
-            url: `/Students/UpdateStudent`,
-            data: data,
-            success: function (data1) {
-                if (data1.value.toString().includes("r")) {
-                    DisplayMsg(1, "Error!", data1.value, 4000, "b");
-                }
-
-                else {
-                    DisplayMsg(0, "Added!", obj.Name + " Updated", 4000, "b");
-                }
-
-            }
-        });
-    }
-
-    function RemoveStudent(studentEmail, studentName, EnrollNumber) {
-        $.ajax({
-            type: "POST",
-            url: `/Students/Remove`,
-            data: {
-                "Email": studentEmail
-            },
-            success: function (data1) {
-                if (!data1.value.toString().includes("t")) {
-                    DisplayMsg(1, "Error!", "Cannot Remove", 4000, "b");
-                    document.getElementById(studentEmail).remove();
-                }
-
-                else {
-                    DisplayMsg(0, "Removed!", studentName + " Removed", 4000, "b");
-                }
-
-            }
-        });
-    }
 }
+function UpdateStudent() {
+    const data = $('#CreateStudent').serializeArray();
+    const obj = getFormObj(data);
+    console.log(data);
+    $.ajax({
+        type: "POST",
+        url: `/Students/UpdateStudent`,
+        data: data,
+        success: function (data1) {
+            if (data1.value.toString().includes("r")) {
+                DisplayMsg(1, "Error!", data1.value, 4000, "b");
+            }
+
+            else {
+                DisplayMsg(0, "Added!", obj.Name + " Updated", 4000, "b");
+            }
+
+        }
+    });
+}
+
+function RemoveStudent(studentEmail, studentName, EnrollNumber) {
+    $.ajax({
+        type: "POST",
+        url: `/Students/Remove`,
+        data: {
+            "Email": studentEmail
+        },
+        success: function (data1) {
+            if (!data1.value.toString().includes("t")) {
+                DisplayMsg(1, "Error!", "Cannot Remove", 4000, "b");
+                document.getElementById(studentEmail).remove();
+            }
+
+            else {
+                DisplayMsg(0, "Removed!", studentName + " Removed", 4000, "b");
+            }
+
+        }
+    });
+}
+
 
 
 function AddExam() {
@@ -309,28 +309,6 @@ function RemoveExam(Id, ExamName) {
 
             else {
                 DisplayMsg(0, "Removed!", ExamName + " Removed", 4000, "b");
-            }
-
-        }
-    });
-}
-
-
-function RemoveStudent(studentEmail, studentName, EnrollNumber) {
-    $.ajax({
-        type: "POST",
-        url: `/Students/Remove`,
-        data: {
-            "Email": studentEmail
-        },
-        success: function (data1) {
-            if (!data1.value.toString().includes("t")) {
-                DisplayMsg(1, "Error!", "Cannot Remove", 4000, "b");
-                document.getElementById(studentEmail).remove();
-            }
-
-            else {
-                DisplayMsg(0, "Removed!", studentName + " Removed", 4000, "b");
             }
 
         }
