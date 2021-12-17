@@ -99,6 +99,13 @@ function UpdateStudent() {
 function UpdateExam() {
     const data = $('#UpdateExam').serializeArray();
 
+    if (data[3].value.toString().trim() == "") {
+        data[3].value = data[2].value;
+    }
+    if (data[5].value.toString().trim() == "") {
+        data[5].value = data[4].value;
+    }
+
     $.ajax({
         type: "POST",
         url: `/Exam/EditExam`,
