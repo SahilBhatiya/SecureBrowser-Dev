@@ -19,11 +19,11 @@ namespace AdminSecureBrowser.Controllers
                 Task<FirestoreAdmin> user = FirestoreFunctions.Functions.GetAdmin(User.Identity.Name);
                 user.Wait();
                 ViewBag.User = user.Result;
-                return View();
+                return RedirectToAction("Exams", "Dashboard");
             }
             else
             {
-                return RedirectToAction("CollegesAsync", "Dashboard");
+                return RedirectToAction("Index", "Home");
             }
 
         }

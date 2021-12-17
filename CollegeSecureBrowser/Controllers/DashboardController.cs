@@ -20,11 +20,11 @@ namespace CollegeSecureBrowser.Controllers
                 Task<FirestoreCollege> user = FirestoreFunctions.Functions.GetCollege(User.Identity.Name);
                 user.Wait();
                 ViewBag.User = user.Result;
-                return View();
+                return RedirectToAction("Exams", "Dashboard");
             }
             else
             {
-                return RedirectToAction("Exams", "Dashboard");
+                return RedirectToAction("Index", "Home");
             }
         }
 
