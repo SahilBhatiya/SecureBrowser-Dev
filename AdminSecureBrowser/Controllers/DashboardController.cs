@@ -23,7 +23,7 @@ namespace AdminSecureBrowser.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("CollegesAsync", "Dashboard");
             }
 
         }

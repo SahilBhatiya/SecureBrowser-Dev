@@ -24,7 +24,7 @@ namespace CollegeSecureBrowser.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Exams", "Dashboard");
             }
         }
 
