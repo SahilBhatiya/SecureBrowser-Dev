@@ -7,10 +7,6 @@ namespace AdminSecureBrowser.Controllers
 {
     public class CollegesController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public IActionResult Add()
         {
