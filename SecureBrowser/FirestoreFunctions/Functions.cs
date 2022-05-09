@@ -32,7 +32,7 @@ namespace SecureBrowser.FirestoreFunctions
             
             //var file = AppDomain.CurrentDomain.BaseDirectory + @"\FirestoreFunctions\Key.json";
             WebClient client = new WebClient();
-            Stream stream = client.OpenRead("https://raw.githubusercontent.com/SahilBhatiya/SecureBrowser-Dev/master/SecureBrowser/FirestoreFunctions/key.json?token=GHSAT0AAAAAABUFWMOEHNJIVRLUP4OYLC6UYTZFT5Q");
+            Stream stream = client.OpenRead("https://raw.githubusercontent.com/SahilBhatiya/SecureBrowser-Dev/master/SecureBrowser/FirestoreFunctions/key.json");
             StreamReader reader = new StreamReader(stream);
             String content = reader.ReadToEnd();
             
