@@ -29,10 +29,12 @@ namespace CollegeSecureBrowser.FirestoreFunctions
         {
             //var file = AppDomain.CurrentDomain.BaseDirectory + @"\FirestoreFunctions\Key.json";
             WebClient client = new WebClient();
-            Stream stream = client.OpenRead("https://raw.githubusercontent.com/SahilBhatiya/SecureBrowser-Dev/master/SecureBrowser/FirestoreFunctions/key.json");
+            Stream stream =
+                client.OpenRead(
+                    "https://raw.githubusercontent.com/SahilBhatiya/SecureBrowser-Dev/master/SecureBrowser/FirestoreFunctions/key.json");
             StreamReader reader = new StreamReader(stream);
             String content = reader.ReadToEnd();
-            
+
             var json = content;
 
             var jsonString = json.ToString();
@@ -40,7 +42,8 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             {
                 var builder = new FirestoreClientBuilder { JsonCredentials = jsonString };
                 //database = FirestoreDb.Create("exam-proctor-8d533", builder.Build());
-                database = FirestoreDb.Create("exam-proctor-project", builder.Build());
+                //database = FirestoreDb.Create("exam-proctor-project", builder.Build());
+                database = FirestoreDb.Create("examproctor-ffd36", builder.Build());
             }
             catch (Exception e)
             {
@@ -56,8 +59,8 @@ namespace CollegeSecureBrowser.FirestoreFunctions
 
             Connect();
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(Email);
+                .Collection("College")
+                .Document(Email);
 
             College clg = new College()
             {
@@ -92,8 +95,8 @@ namespace CollegeSecureBrowser.FirestoreFunctions
         {
             Connect();
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(college.Email);
+                .Collection("College")
+                .Document(college.Email);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -108,21 +111,19 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                 {
                     return false;
                 }
-
             }
             else
             {
                 return false;
             }
-
         }
 
         public static async Task<bool> UpdateCollege(College college)
         {
             Connect();
             DocumentReference DOC = database
-                       .Collection("College")
-                       .Document(college.Email);
+                .Collection("College")
+                .Document(college.Email);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -130,13 +131,13 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             {
                 Dictionary<string, object> data = new Dictionary<string, object>()
                 {
-                    {"Country", college.Country },
-                    {"State", college.State },
-                    {"City", college.City },
-                    {"Pincode", college.Pincode },
-                    {"Mobile", college.Mobile },
-                    {"Name", college.Name },
-                    {"DefaultLink", college.DefaultLink }
+                    { "Country", college.Country },
+                    { "State", college.State },
+                    { "City", college.City },
+                    { "Pincode", college.Pincode },
+                    { "Mobile", college.Mobile },
+                    { "Name", college.Name },
+                    { "DefaultLink", college.DefaultLink }
                 };
 
                 await DOC.UpdateAsync(data);
@@ -152,8 +153,8 @@ namespace CollegeSecureBrowser.FirestoreFunctions
         {
             Connect();
             DocumentReference DOC = database
-                       .Collection("College")
-                       .Document(college.Email);
+                .Collection("College")
+                .Document(college.Email);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -165,7 +166,7 @@ namespace CollegeSecureBrowser.FirestoreFunctions
                 {
                     Dictionary<string, object> data = new Dictionary<string, object>()
                     {
-                        {"Password", Hashing.ComputeSha256Hash(college.NewPassword) }
+                        { "Password", Hashing.ComputeSha256Hash(college.NewPassword) }
                     };
 
                     await DOC.UpdateAsync(data);
@@ -192,21 +193,21 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             if (!isValid)
             {
                 DocumentReference DOC = database
-    .Collection("College")
-    .Document(college.Email);
+                    .Collection("College")
+                    .Document(college.Email);
                 Dictionary<string, object> data = new Dictionary<string, object>()
-            {
-                {"Country", college.Country },
-                {"State", college.State },
-                {"City", college.City },
-                {"Pincode", college.Pincode },
-                {"Mobile", college.Mobile },
-                {"Email", college.Email },
-                {"Name", college.Name },
-                {"Password", college.Password },
-                {"DefaultLink", college.DefaultLink },
-                {"Role", "College" },
-            };
+                {
+                    { "Country", college.Country },
+                    { "State", college.State },
+                    { "City", college.City },
+                    { "Pincode", college.Pincode },
+                    { "Mobile", college.Mobile },
+                    { "Email", college.Email },
+                    { "Name", college.Name },
+                    { "Password", college.Password },
+                    { "DefaultLink", college.DefaultLink },
+                    { "Role", "College" },
+                };
                 DOC.SetAsync(data);
 
                 return "College Created";
@@ -215,7 +216,6 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             {
                 return "College Already Exsits";
             }
-
         }
 
         private static async Task<bool> CollegeExsits(string email)
@@ -224,8 +224,8 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             bool isExsits = false;
 
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(email);
+                .Collection("College")
+                .Document(email);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -243,8 +243,8 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             bool isExsits = false;
 
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(email);
+                .Collection("College")
+                .Document(email);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -261,19 +261,16 @@ namespace CollegeSecureBrowser.FirestoreFunctions
         }
 
 
-
-
-
         private static async Task<bool> StudentExsits(string email, String StudentEmail)
         {
             Connect();
             bool isExsits = false;
 
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(email)
-                                   .Collection("Students")
-                                   .Document(StudentEmail);
+                .Collection("College")
+                .Document(email)
+                .Collection("Students")
+                .Document(StudentEmail);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -296,29 +293,28 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             if (!isValid)
             {
                 DocumentReference DOC = database
-                                        .Collection("College")
-                                        .Document(model.CollegeEmail)
-                                        .Collection("Students")
-                                        .Document(model.Email);
+                    .Collection("College")
+                    .Document(model.CollegeEmail)
+                    .Collection("Students")
+                    .Document(model.Email);
 
                 Dictionary<string, object> data = new Dictionary<string, object>()
-            {
-                {"BatchYear", model.BatchYear },
-                {"Semester", model.Semester },
+                {
+                    { "BatchYear", model.BatchYear },
+                    { "Semester", model.Semester },
 
-                {"Email", model.Email },
-                {"Name", model.Name },
-                {"Mobile", model.Mobile },
-                {"EnrollNumber", model.EnrollNumber },
+                    { "Email", model.Email },
+                    { "Name", model.Name },
+                    { "Mobile", model.Mobile },
+                    { "EnrollNumber", model.EnrollNumber },
 
-                {"Country", model.Country },
-                {"State", model.State },
-                {"City", model.City },
+                    { "Country", model.Country },
+                    { "State", model.State },
+                    { "City", model.City },
 
-                {"Password", model.Email },
-                {"Role", "Student" },
-
-            };
+                    { "Password", model.Email },
+                    { "Role", "Student" },
+                };
                 DOC.SetAsync(data);
 
                 return "Student Created";
@@ -327,7 +323,6 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             {
                 return "Student Already Exsits";
             }
-
         }
 
         public static string UpdateStudent(Student model)
@@ -340,28 +335,27 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             if (isValid)
             {
                 DocumentReference DOC = database
-                                        .Collection("College")
-                                        .Document(model.CollegeEmail)
-                                        .Collection("Students")
-                                        .Document(model.Email);
+                    .Collection("College")
+                    .Document(model.CollegeEmail)
+                    .Collection("Students")
+                    .Document(model.Email);
 
                 Dictionary<string, object> data = new Dictionary<string, object>()
-            {
-                {"BatchYear", model.BatchYear },
-                {"Semester", model.Semester },
+                {
+                    { "BatchYear", model.BatchYear },
+                    { "Semester", model.Semester },
 
-                {"Name", model.Name },
-                {"Mobile", model.Mobile },
-                {"EnrollNumber", model.EnrollNumber },
+                    { "Name", model.Name },
+                    { "Mobile", model.Mobile },
+                    { "EnrollNumber", model.EnrollNumber },
 
-                {"Country", model.Country },
-                {"State", model.State },
-                {"City", model.City },
+                    { "Country", model.Country },
+                    { "State", model.State },
+                    { "City", model.City },
 
-                {"Password", model.Email },
-                {"Role", "Student" },
-
-            };
+                    { "Password", model.Email },
+                    { "Role", "Student" },
+                };
                 DOC.UpdateAsync(data);
 
                 return "Student Updated";
@@ -370,7 +364,6 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             {
                 return "Student Doesnot Exsits";
             }
-
         }
 
         public static async Task<FirestoreStudent> GetStudent(string email, String studentEmail)
@@ -378,10 +371,10 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             Connect();
 
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(email)
-                                   .Collection("Students")
-                                   .Document(studentEmail);
+                .Collection("College")
+                .Document(email)
+                .Collection("Students")
+                .Document(studentEmail);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -403,21 +396,20 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             List<FirestoreStudent> Students = new List<FirestoreStudent>();
 
             Query allStudents = database
-                                   .Collection("College")
-                                   .Document(email)
-                                   .Collection("Students");
+                .Collection("College")
+                .Document(email)
+                .Collection("Students");
 
             QuerySnapshot allStudentsSnapshot = await allStudents.GetSnapshotAsync();
 
             foreach (DocumentSnapshot documentSnapshot in allStudentsSnapshot.Documents)
             {
-
                 FirestoreStudent model = documentSnapshot.ConvertTo<FirestoreStudent>();
                 Students.Add(model);
             }
+
             return Students;
         }
-
 
 
         internal static async Task<bool> DeleteStudent(string Email, string StudentEmail)
@@ -426,10 +418,10 @@ namespace CollegeSecureBrowser.FirestoreFunctions
 
             Connect();
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(Email)
-                                   .Collection("Students")
-                                   .Document(StudentEmail);
+                .Collection("College")
+                .Document(Email)
+                .Collection("Students")
+                .Document(StudentEmail);
 
             var result = await DOC.DeleteAsync();
             if (result != null)
@@ -449,10 +441,10 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             Connect();
             model.Id = Guid.NewGuid().ToString();
             DocumentReference DOC = database
-                                        .Collection("College")
-                                        .Document(model.CollegeEmail)
-                                        .Collection("Exams")
-                                        .Document(model.Id);
+                .Collection("College")
+                .Document(model.CollegeEmail)
+                .Collection("Exams")
+                .Document(model.Id);
 
 
             model.Start = DateTime.SpecifyKind(new DateTime(model.Start.Ticks), DateTimeKind.Utc);
@@ -460,19 +452,18 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             model.End = DateTime.SpecifyKind(new DateTime(model.End.Ticks), DateTimeKind.Utc);
 
             Dictionary<string, object> data = new Dictionary<string, object>()
-                {
-                    {"Id", model.Id },
-                    {"Semester", model.Semester },
+            {
+                { "Id", model.Id },
+                { "Semester", model.Semester },
 
-                    {"Name", model.Name },
+                { "Name", model.Name },
 
-                    {"Start", model.Start },
-                    {"End", model.End },
-                    {"Link", model.Link },
+                { "Start", model.Start },
+                { "End", model.End },
+                { "Link", model.Link },
 
-                    {"CollegeEmail", model.CollegeEmail },
-
-                };
+                { "CollegeEmail", model.CollegeEmail },
+            };
             await DOC.SetAsync(data);
 
             return "Exam Created";
@@ -484,10 +475,10 @@ namespace CollegeSecureBrowser.FirestoreFunctions
 
             Connect();
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(Email)
-                                   .Collection("Exams")
-                                   .Document(Id);
+                .Collection("College")
+                .Document(Email)
+                .Collection("Exams")
+                .Document(Id);
 
             var result = await DOC.DeleteAsync();
             if (result != null)
@@ -508,18 +499,18 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             List<FirestoreExam> lists = new List<FirestoreExam>();
 
             Query allData = database
-                                   .Collection("College")
-                                   .Document(email)
-                                   .Collection("Exams");
+                .Collection("College")
+                .Document(email)
+                .Collection("Exams");
 
             QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
 
             foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
             {
-
                 FirestoreExam model = documentSnapshot.ConvertTo<FirestoreExam>();
                 lists.Add(model);
             }
+
             return lists;
         }
 
@@ -528,10 +519,10 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             Connect();
 
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(email)
-                                   .Collection("Exams")
-                                   .Document(Id);
+                .Collection("College")
+                .Document(email)
+                .Collection("Exams")
+                .Document(Id);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -553,10 +544,10 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             bool isExsits = false;
 
             DocumentReference DOC = database
-                                   .Collection("College")
-                                   .Document(email)
-                                   .Collection("Exams")
-                                   .Document(Id);
+                .Collection("College")
+                .Document(email)
+                .Collection("Exams")
+                .Document(Id);
 
             DocumentSnapshot snapshot = await DOC.GetSnapshotAsync();
 
@@ -579,26 +570,25 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             if (isValid)
             {
                 DocumentReference DOC = database
-                                        .Collection("College")
-                                        .Document(model.CollegeEmail)
-                                        .Collection("Exams")
-                                        .Document(model.Id);
+                    .Collection("College")
+                    .Document(model.CollegeEmail)
+                    .Collection("Exams")
+                    .Document(model.Id);
 
                 model.Start = DateTime.SpecifyKind(new DateTime(model.Start.Ticks), DateTimeKind.Utc);
 
                 model.End = DateTime.SpecifyKind(new DateTime(model.End.Ticks), DateTimeKind.Utc);
 
                 Dictionary<string, object> data = new Dictionary<string, object>()
-            {
-                {"Start", model.Start },
-                {"End", model.End },
+                {
+                    { "Start", model.Start },
+                    { "End", model.End },
 
-                {"Name", model.Name },
-                {"Link", model.Link },
+                    { "Name", model.Name },
+                    { "Link", model.Link },
 
-                {"Semester", model.Semester },
-
-            };
+                    { "Semester", model.Semester },
+                };
                 var task1 = await DOC.UpdateAsync(data);
 
                 return "true";
@@ -607,7 +597,6 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             {
                 return "false";
             }
-
         }
 
 
@@ -617,51 +606,48 @@ namespace CollegeSecureBrowser.FirestoreFunctions
             List<FirestoreStudentCopied> lists = new List<FirestoreStudentCopied>();
 
             Query allData = database
-                       .Collection("College")
-                       .Document(clgEmail)
-                       .Collection("Exams")
-                       .Document(ExamId)
-                       .Collection("Copied");
+                .Collection("College")
+                .Document(clgEmail)
+                .Collection("Exams")
+                .Document(ExamId)
+                .Collection("Copied");
 
             QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
 
             foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
             {
-
                 FirestoreStudentCopied model = documentSnapshot.ConvertTo<FirestoreStudentCopied>();
                 lists.Add(model);
             }
+
             return lists;
         }
 
 
-        internal static async Task<List<FirestoreStudentCopied>> GetAllCopyCasesByExamIdAndStudentEmail(string clgEmail, string ExamId, string studentEmail)
+        internal static async Task<List<FirestoreStudentCopied>> GetAllCopyCasesByExamIdAndStudentEmail(string clgEmail,
+            string ExamId, string studentEmail)
         {
             Connect();
             List<FirestoreStudentCopied> lists = new List<FirestoreStudentCopied>();
 
             Query allData = database
-                       .Collection("College")
-                       .Document(clgEmail)
-                       .Collection("Exams")
-                       .Document(ExamId)
-                       .Collection("Copied")
-                       .Document(studentEmail)
-                       .Collection("Images");
+                .Collection("College")
+                .Document(clgEmail)
+                .Collection("Exams")
+                .Document(ExamId)
+                .Collection("Copied")
+                .Document(studentEmail)
+                .Collection("Images");
 
             QuerySnapshot allDataSnapshot = await allData.GetSnapshotAsync();
 
             foreach (DocumentSnapshot documentSnapshot in allDataSnapshot.Documents)
             {
-
                 FirestoreStudentCopied model = documentSnapshot.ConvertTo<FirestoreStudentCopied>();
                 lists.Add(model);
             }
+
             return lists;
         }
-
-
-
-
     }
 }
