@@ -43,7 +43,8 @@ namespace SecureBrowser.FirestoreFunctions
             {
                 var builder = new FirestoreClientBuilder { JsonCredentials = jsonString };
                 //database = FirestoreDb.Create("exam-proctor-8d533", builder.Build());
-                database = FirestoreDb.Create("exam-proctor-project", builder.Build());
+                //database = FirestoreDb.Create("exam-proctor-project", builder.Build());
+                database = FirestoreDb.Create("examproctor-ffd36", builder.Build());
             }
             catch (Exception e)
             {
